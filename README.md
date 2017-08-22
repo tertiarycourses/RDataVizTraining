@@ -7,6 +7,7 @@ These are the exercise files used for [R Data Visualization Training](https://ww
 The course outline can be found in 
 
 https://www.tertiarycourses.com.sg/r-data-visualization-training.html
+
 https://www.tertiarycourses.com.my/r-data-visualization-training.html
 
 <p><strong>Module 1: Basic Plots</strong></p>
