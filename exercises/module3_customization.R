@@ -1,33 +1,5 @@
 # Module 3 Customizing ggplots2
 
-# Load the Tidyverse
-library(tidyverse)
-
-# Read the college dataset
-college <- read_csv('http://672258.youcanlearnit.net/college.csv')
-
-# Take a look at the data
-summary(college)
-
-# Convert state, region, highest_degree, control, and gender to factors
-college <- college %>%
-  mutate(state=as.factor(state), region=as.factor(region), city=as.factor(city),
-         highest_degree=as.factor(highest_degree),
-         control=as.factor(control), gender=as.factor(gender))
-
-# Take a look at the data
-summary(college)
-
-# What's going on with loan_default_rate?
-unique(college$loan_default_rate)
-
-# Let's just force that to numeric and the "NULL" will convert to N/A
-college <- college %>%
-  mutate(loan_default_rate=as.numeric(loan_default_rate))
-
-# Take a look at the data
-summary(college)
-
 # Default theme
 ggplot(data=college) + geom_point(size=3) + aes(x=tuition, y=sat_avg)
 
@@ -66,7 +38,7 @@ ggplot(data=college) +
   xlab("Region") +
   ylab("Number of Schools")
 
-# Resize the y-axis
+# Ex: Resize the y-axis
 ggplot(data=college) +
   geom_bar() + aes(x=region, fill=control) +
   theme(panel.background=element_blank()) +

@@ -1,4 +1,4 @@
-# Module 3 Customizing ggplots2
+# Module 4 Geospatial Visualizations
 
 # Load the Tidyverse
 library(tidyverse)
@@ -82,3 +82,104 @@ ggplot(mapdata) +
   geom_polygon(aes(x=long,y=lat,group=group)) +
   coord_map() +
   theme(plot.background=element_blank(), panel.background = element_blank(), axis.title=element_blank(), axis.ticks=element_blank(), axis.text=element_blank()) 
+
+
+# Convert to a choropleth map by using the schools variable as the fill
+ggplot(mapdata) +
+  geom_polygon(aes(x=long,y=lat,group=group, fill=schools)) +
+  coord_map() +
+  theme(plot.background=element_blank(), panel.background = element_blank(), axis.title=element_blank(), axis.ticks=element_blank(), axis.text=element_blank()) 
+
+# Change the color scheme
+ggplot(mapdata) +
+  geom_polygon(aes(x=long,y=lat,group=group, fill=schools)) +
+  coord_map() +
+  theme(plot.background=element_blank(), panel.background = element_blank(), axis.title=element_blank(), axis.ticks=element_blank(), axis.text=element_blank()) +
+  scale_fill_gradient(low = "beige", high = "red")
+
+states <- map_data("state")
+
+# Plot the colleges on the map
+ggplot(states) +
+  geom_polygon(mapping=aes(x=long,y=lat,group=group), color="grey", fill="beige") +
+  coord_map() +
+  theme(plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        axis.title=element_blank(), 
+        axis.ticks=element_blank(), 
+        axis.text=element_blank()) +
+  geom_point(data=college, mapping=aes(x=lon, y=lat))
+
+# Remove Alaska and Hawaii
+college <- college %>%
+  filter(state!="HI" & state!="AK")
+
+# Replot the map
+ggplot(states) +
+  geom_polygon(mapping=aes(x=long,y=lat,group=group), color="grey", fill="beige") +
+  coord_map() +
+  theme(plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        axis.title=element_blank(), 
+        axis.ticks=element_blank(), 
+        axis.text=element_blank()) +
+  geom_point(data=college, mapping=aes(x=lon, y=lat))
+
+# Change size based upon number of students
+ggplot(states) +
+  geom_polygon(mapping=aes(x=long,y=lat,group=group), color="grey", fill="beige") +
+  coord_map() +
+  theme(plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        axis.title=element_blank(), 
+        axis.ticks=element_blank(), 
+        axis.text=element_blank()) +
+  geom_point(data=college, mapping=aes(x=lon, y=lat, color=control, size=undergrads))
+
+# Add some transparency
+# Replot the map
+
+california <- map_data(map="county", region="California")
+
+college <- college %>%
+  filter(state=="CA")
+
+ggplot(california) +
+  geom_polygon(mapping=aes(x=long,y=lat,group=group), color="grey", fill="beige") +
+  coord_map() +
+  theme(plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        axis.title=element_blank(), 
+        axis.ticks=element_blank(), 
+        axis.text=element_blank()) +
+  geom_point(data=college, mapping=aes(x=lon, y=lat, color=control, size=undergrads), alpha=0.6)
+
+city_names <- c("Los Angeles", "San Diego", "San Jose", "San Francisco", "Fresno", "Sacramento")
+locations <- geocode(city_names)
+cities <- tibble (name=city_names, lat=locations$lat, lon=locations$lon)
+
+# Label the cities
+ggplot(california) +
+  geom_polygon(mapping=aes(x=long,y=lat,group=group), color="grey", fill="beige") +
+  coord_map() +
+  theme(plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        axis.title=element_blank(), 
+        axis.ticks=element_blank(), 
+        axis.text=element_blank()) +
+  geom_point(data=college, mapping=aes(x=lon, y=lat, color=control, size=undergrads), alpha=0.6) +
+  geom_text(data=cities, mapping=aes(x=lon, y=lat, label=name))
+
+# Rename the legends
+ggplot(california) +
+  geom_polygon(mapping=aes(x=long,y=lat,group=group), color="grey", fill="beige") +
+  coord_map() +
+  theme(plot.background=element_blank(), 
+        panel.background = element_blank(), 
+        axis.title=element_blank(), 
+        axis.ticks=element_blank(), 
+        axis.text=element_blank()) +
+  geom_point(data=college, mapping=aes(x=lon, y=lat, color=control, size=undergrads), alpha=0.6) +
+  geom_text(data=cities, mapping=aes(x=lon, y=lat, label=name)) +
+  scale_size_continuous(name="Undergraduate Population") +
+  scale_color_discrete(name="Institutional Control")

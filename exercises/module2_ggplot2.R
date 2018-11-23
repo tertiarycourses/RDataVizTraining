@@ -18,16 +18,6 @@ college <- college %>%
 # Take a look at the data
 summary(college)
 
-# What's going on with loan_default_rate?
-unique(college$loan_default_rate)
-
-# Let's just force that to numeric and the "NULL" will convert to N/A
-college <- college %>%
-  mutate(loan_default_rate=as.numeric(loan_default_rate))
-
-# Take a look at the data
-summary(college)
-
 # I need to tell ggplot what data to use
 ggplot(data=college)
 
@@ -43,15 +33,11 @@ ggplot(data=mtcars) + geom_point(size=3) + aes(x=wt, y=mpg)
 # We can do this using the shape attribute
 ggplot(data=college) + geom_point(size=3) + aes(x=tuition, y=sat_avg, shape=control, color=control)
 
-# Ex: Add Attribute to Color
-
-ggplot(mtcars) + geom_point(size=5) + aes(x=wt, y = mpg, color=factor(am)) 
-
 # Add More Attributes
 ggplot(data=college) + geom_point() + aes(x=tuition, y=sat_avg, color=control, size=undergrads)
 
-# Ex
-ggplot(mtcars) + geom_point() + aes(x=wt, y = mpg, col = factor(am), shape = factor(cyl), size = factor(vs))                 
+# Ex: Scatter Plot
+ggplot(data=mtcars) + geom_point() + aes(x=mpg,y=hp,color=factor(am),size=factor(cyl))
 
 # And, lastly, let's add some transparency so we can see through those points a bit
 # Experiment with the alpha value a bit.
@@ -68,11 +54,16 @@ ggplot(data=college) + geom_smooth(se=FALSE) + geom_point() + aes(x=tuition, y=s
 # This calls for a bar graph!
 ggplot(data=college) + geom_bar() + aes(x=region)
 
-# Ex: Barplot
-ggplot(mtcars) + geom_bar() + aes(x = factor(cyl)) 
 
 # Stacked Barplot
 ggplot(data=college) + geom_bar() + aes(x=region, fill=control)
+
+# Ex: Barplot
+gs <- read_csv('./data/gs.csv')
+ggplot(data=gs) + geom_bar() + aes(x=factor(Category),fill=Segment) 
+
+ggplot(data=gs) + geom_col() + aes(x=factor(Category),y=Sales, fill=Segment)
+
 
 # How about average tuition by region?
 # First, I'll use some dplyr to create the right tibble
@@ -86,11 +77,19 @@ college %>%
   summarize(avg_tuition=mean(tuition)) %>%
   ggplot() + geom_col() + aes(x=region, y=avg_tuition)
 
+# Ex: data piping
+
+gs %>%
+  group_by(Region) %>%
+  summarize(avg_sales=mean(Sales)) %>%
+  ggplot() + geom_col() + aes(x=Region,y=avg_sales,fill=Region)
+
 # Histogram
 ggplot(data=college) + geom_histogram(binwidth=1000) + aes(x=undergrads,origin=0)
 
-# Histogram 
-ggplot(mtcars) + geom_histogram(bins=10) + aes(x=wt) 
+# Ex: Histogram 
+ggplot(data=gs) + geom_histogram(bins=10,fill='red') +
+  aes(x=Discount)
 
 # Boxplot
 ggplot(data=college) + geom_boxplot(fill='green') + aes(x=control, y=tuition)
