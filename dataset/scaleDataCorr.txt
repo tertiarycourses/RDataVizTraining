@@ -1,3 +1,0 @@
-(SBP-min(SBP))/(max(SBP)-min(SBP))
-
-> convert to between 0 and 1
