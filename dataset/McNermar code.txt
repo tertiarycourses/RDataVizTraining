@@ -1,0 +1,4 @@
+.Table
+(res=mcnemar.test(.Table,correct=TRUE))
+cat(gettext(domain="R-RcmdrPlugin.EZR","McNemar's test"),"p.value=9.49e-95")
+remove(res)

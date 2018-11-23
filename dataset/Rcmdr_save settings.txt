@@ -1,0 +1,45 @@
+
+**** write this is your Rprofile site
+
+**** C:\Program Files\R\R-3.4.3\library\base\R
+
+
+
+
+
+options(rpubs.upload.method="internal")
+
+###! Rcmdr Options Begin !###
+options(Rcmdr=
+structure(list(plugins = "RcmdrPlugin.EZR", ask.to.exit = TRUE, 
+    ask.on.exit = TRUE, quit.R.on.close = FALSE, number.messages = TRUE, 
+    retain.messages = TRUE, use.markdown = TRUE, rmd.template = "C:/Users/user/Documents/R/win-library/3.4/Rcmdr/etc/Rcmdr-RMarkdown-Template.Rmd", 
+    use.knitr = FALSE, log.font.family = "Courier New", default.font.family = "Segoe UI", 
+    log.font.size = 10, default.font.size = "9", log.width = 80, 
+    log.height = 10, log.commands = TRUE, output.height = 20, 
+    scientific.notation = 5, console.output = FALSE, default.contrasts = c("contr.Treatment", 
+    "contr.poly"), grab.focus = TRUE, double.click = FALSE, sort.names = TRUE, 
+    show.edit.button = TRUE, suppress.icon.images = FALSE, retain.selections = TRUE, 
+    use.rgl = TRUE, log.text.color = "black", command.text.color = "darkred", 
+    output.text.color = "blue4", error.text.color = "red", warning.text.color = "darkgreen", 
+    title.color = "#0046D5", theme = "vista"), .Names = c("plugins", 
+"ask.to.exit", "ask.on.exit", "quit.R.on.close", "number.messages", 
+"retain.messages", "use.markdown", "rmd.template", "use.knitr", 
+"log.font.family", "default.font.family", "log.font.size", "default.font.size", 
+"log.width", "log.height", "log.commands", "output.height", "scientific.notation", 
+"console.output", "default.contrasts", "grab.focus", "double.click", 
+"sort.names", "show.edit.button", "suppress.icon.images", "retain.selections", 
+"use.rgl", "log.text.color", "command.text.color", "output.text.color", 
+"error.text.color", "warning.text.color", "title.color", "theme"
+))
+)
+
+# Uncomment the following 4 lines (remove the #s)
+#  to start the R Commander automatically when R starts:
+
+# local({
+#    old <- getOption('defaultPackages')
+#    options(defaultPackages = c(old, 'Rcmdr'))
+# })
+
+###! Rcmdr Options End !###

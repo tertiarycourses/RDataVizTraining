@@ -1,0 +1,4 @@
+compute new variable:split
+
+data$split=sample(2, nrow(mydata), replace=TRUE, prob=c(0.8,0.2))
+
